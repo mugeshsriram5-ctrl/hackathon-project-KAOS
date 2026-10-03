@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <!-- Background Outer Glow Filter -->
+    <filter id="outer-glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="28" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Neon Pink Glow for Fissures -->
+    <filter id="fissure-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="glow1" />
+      <feGaussianBlur stdDeviation="15" result="glow2" />
+      <feMerge>
+        <feMergeNode in="glow2" />
+        <feMergeNode in="glow1" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Deep Neon Ambient Glow -->
+    <filter id="ambient-neon" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="45" result="blur" />
+    </filter>
+
+    <!-- Outer Neon Border Gradient (Pink to Violet) -->
+    <linearGradient id="neon-rim-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF2A93" />
+      <stop offset="30%" stop-color="#FF3B8E" />
+      <stop offset="65%" stop-color="#C026D3" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </linearGradient>
+
+    <!-- Inner Radial Glow -->
+    <radialGradient id="inner-ambient" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#FF2A93" stop-opacity="0.32" />
+      <stop offset="50%" stop-color="#9333EA" stop-opacity="0.18" />
+      <stop offset="85%" stop-color="#0F091F" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#080512" stop-opacity="0.98" />
+    </radialGradient>
+
+    <!-- Facet Gradients for Obsidian Gem -->
+    <linearGradient id="facet-main" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#212638" />
+      <stop offset="45%" stop-color="#161926" />
+      <stop offset="100%" stop-color="#0D0F17" />
+    </linearGradient>
+
+    <linearGradient id="facet-bevel-right" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2D344B" />
+      <stop offset="60%" stop-color="#1E2232" />
+      <stop offset="100%" stop-color="#11131C" />
+    </linearGradient>
+
+    <linearGradient id="facet-dark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#191C2B" />
+      <stop offset="100%" stop-color="#090B10" />
+    </linearGradient>
+
+    <linearGradient id="facet-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2A2F45" />
+      <stop offset="100%" stop-color="#141724" />
+    </linearGradient>
+  </defs>
+
+  <!-- Ambient Outer Glow Background Bloom -->
+  <rect x="52" y="52" width="408" height="408" rx="92" fill="#C026D3" opacity="0.35" filter="url(#ambient-neon)" />
+  <rect x="44" y="44" width="424" height="424" rx="96" fill="#FF2A93" opacity="0.38" filter="url(#outer-glow)" />
+
+  <!-- Main App Icon Squircle Container -->
+  <rect x="46" y="46" width="420" height="420" rx="94" fill="#0C0819" />
+  <rect x="46" y="46" width="420" height="420" rx="94" fill="url(#inner-ambient)" />
+
+  <!-- Luminous Inner Neon Rim -->
+  <rect x="48" y="48" width="416" height="416" rx="92" fill="none" stroke="url(#neon-rim-grad)" stroke-width="4.5" opacity="0.9" />
+
+  <!-- CENTRAL EMBLEM: Fractured Neon Obsidian Geode / Monogram -->
+  <g id="kaos-emblem">
+    <!-- Glowing Laser Underlay (Neon Pink/Magenta Seams) -->
+    <g filter="url(#fissure-glow)" opacity="0.95">
+      <!-- Glow Underlay Line Networks -->
+      <path d="M 166 122 L 102 186 L 166 218 L 104 264 L 148 296 L 102 344 L 166 400" fill="none" stroke="#FF1B90" stroke-width="8" stroke-linejoin="round" />
+      <path d="M 166 218 L 222 144 L 152 284 L 272 400" fill="none" stroke="#FF2B98" stroke-width="8" stroke-linejoin="round" />
+      <path d="M 222 144 L 254 120 L 320 128 L 274 178 L 328 136 L 378 160 L 350 216 L 416 260 L 378 368 L 298 370 L 328 388 L 270 402 L 222 292" fill="none" stroke="#FF1B90" stroke-width="8" stroke-linejoin="round" />
+      <path d="M 350 216 L 376 366" fill="none" stroke="#FF1B90" stroke-width="8" stroke-linejoin="round" />
+      <path d="M 270 402 L 324 388 L 354 366" fill="none" stroke="#FF1B90" stroke-width="8" stroke-linejoin="round" />
+    </g>
+
+    <!-- Obsidian Shards: Left Stack -->
+    <!-- Shard 1: Top-Left Triangle -->
+    <polygon points="106,182 162,126 162,210" fill="url(#facet-dark)" stroke="#11141F" stroke-width="1.5" />
+    
+    <!-- Shard 2: Mid-Upper Left Triangle -->
+    <polygon points="104,194 162,216 104,258" fill="url(#facet-main)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Shard 3: Mid-Lower Left Triangle -->
+    <polygon points="104,272 144,296 104,336" fill="url(#facet-accent)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Shard 4: Bottom-Left Triangle -->
+    <polygon points="108,348 144,306 164,394" fill="url(#facet-dark)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Shard 5: Left Chevron Wedge (Forms "K" inner diagonal) -->
+    <polygon points="152,284 216,148 168,220" fill="url(#facet-main)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Obsidian Shards: Central Major Fractured Mass -->
+    <!-- Shard 6: Main Body -->
+    <polygon points="228,148 254,124 316,132 274,178 322,140 372,162 344,218 368,228 348,344 298,366 226,290" fill="url(#facet-main)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Shard 7: 3D Faceted Right Bevel / Chamfer (Catches Light) -->
+    <polygon points="344,218 410,258 374,364 348,344" fill="url(#facet-bevel-right)" stroke="#161B29" stroke-width="1.5" />
+
+    <!-- Subtle Specular Reflection Edge on Right Chamfer -->
+    <polyline points="344,218 410,258 374,364" fill="none" stroke="#4F5B7D" stroke-width="1.2" opacity="0.6" />
+
+    <!-- Shard 8: Bottom Right Under-Facet -->
+    <polygon points="298,370 348,364 322,388" fill="url(#facet-accent)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Shard 9: Lower Diagonal Obsidian Spike (Extending Down-Left) -->
+    <polygon points="172,306 266,398 220,412 166,358" fill="url(#facet-dark)" stroke="#11141F" stroke-width="1.5" />
+
+    <!-- Secondary Neon Highlight Veins on Critical Junctions -->
+    <path d="M 274 178 L 322 140" stroke="#FF54B0" stroke-width="3" stroke-linecap="round" />
+    <path d="M 162 216 L 222 146" stroke="#FF54B0" stroke-width="3" stroke-linecap="round" />
+    <path d="M 148 296 L 226 290" stroke="#FF54B0" stroke-width="3" stroke-linecap="round" />
+    <path d="M 298 366 L 348 344" stroke="#FF54B0" stroke-width="2.5" stroke-linecap="round" />
+  </g>
+</svg>

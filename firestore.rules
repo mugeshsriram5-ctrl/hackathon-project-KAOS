@@ -1,0 +1,86 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Test connection document
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // User profile and private subcollections
+    match /users/{userId} {
+      allow read, write: if true;
+      
+      match /{subcollection=**} {
+        allow read, write: if true;
+      }
+    }
+
+    // Standalone Chat System Directory
+    match /chatUsers/{userId} {
+      allow read, write: if true;
+    }
+
+    // Standalone Chat Conversations & Real-Time Messages
+    match /conversations/{conversationId} {
+      allow read, write: if true;
+
+      match /members/{memberId} {
+        allow read, write: if true;
+      }
+
+      match /messages/{messageId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Real Friend Requests
+    match /friendRequests/{requestId} {
+      allow read, write: if true;
+    }
+
+    // User Blocks
+    match /blocks/{blockId} {
+      allow read, write: if true;
+    }
+
+    // User Reports
+    match /reports/{reportId} {
+      allow read, write: if true;
+    }
+
+    // Global 24-hour Daily Discovery Challenges
+    match /dailyChallenges/{dateKey} {
+      allow read, write: if true;
+    }
+
+    // Community Echoes shared lore graph
+    match /communityEchoes/{echoId} {
+      allow read, write: if true;
+    }
+
+    // Social Discovery Activity Feed
+    match /activityFeed/{activityId} {
+      allow read, write: if true;
+    }
+
+    // Shared Cloud-Anchored Real-World AR Artifacts
+    match /anchoredWorldArtifacts/{artifactId} {
+      allow read, write: if true;
+    }
+
+    // Temporary Local Shared-View AR Sessions
+    match /sharedArSessions/{sessionId} {
+      allow read, write: if true;
+    }
+
+    // Default catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+.gcloudignore
+.git
+node_modules/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+!dist/
+!dist/**
+!build/
+!build/**

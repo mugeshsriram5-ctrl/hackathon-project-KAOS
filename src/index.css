@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  /* Enforce consistent border-radius (8px-12px) across all design system components */
+  --radius-3xl: 12px;
+  --radius-2xl: 12px;
+  --radius-xl: 12px;
+  --radius-lg: 8px;
+  --radius-md: 8px;
+  --radius-sm: 8px;
+
+  /* ==========================================================================
+     THE FLAGSHIP FLASHY, CINEMATIC & COLOR-RICH VISUAL DESIGN SYSTEM (CONTROLLED CHAOS)
+     ========================================================================== */
+  
+  /* permanent permanent permanent permanent permanent permanent permanent permanent permanent permanent permanent permanent */
+  --color-kaos-teal: #00D9D9;       /* CYAN / TEAL: Exploration / KAOS / Interaction */
+  --color-kaos-blue: #287BFF;       /* BLUE: Map / places / navigation */
+  --color-kaos-pink: #FF2DAA;       /* PINK: Friends / social / community */
+  --color-kaos-purple: #7C3AED;     /* PURPLE: AI / intelligence / mystery */
+  --color-kaos-yellow: #FFD23F;     /* YELLOW: XP / rewards / achievement */
+  --color-kaos-orange: #FF6B35;     /* ORANGE: Quests / action / adventure */
+  --color-kaos-lime: #B8F500;       /* LIME: Discovery / completion / unlock */
+  --color-kaos-red: #FF3B5C;         /* RED: Safety / danger / errors */
+  
+  --color-kaos-navy: #0B1026;       /* NAVY: Core environment / night / premium foundation */
+  --color-kaos-offwhite: #F8F7F2;   /* OFFWHITE: Light foundation */
+
+  /* Surface and Backgrounds (Flagship Dark Mode defaults) */
+  --color-background-primary: #0B1026;
+  --color-background-secondary: #111832;
+  --color-surface-primary: #171D35;
+  --color-surface-secondary: #202744;
+
+  /* Typographic Token Scales (Flagship Dark Mode defaults) */
+  --color-text-primary: #F8F7F2;
+  --color-text-secondary: #AAB3CC;
+  --color-text-muted: #69738F;
+  --color-text-disabled: #59627A;
+
+  /* Semantic health and live status indicators */
+  --color-success: #B8F500;         /* Success/unlock gets Lime! */
+  --color-success-bg: rgba(184, 245, 0, 0.1);
+  --color-warning: #FFD23F;
+  --color-warning-bg: rgba(255, 210, 63, 0.1);
+  --color-error: #FF3B5C;
+  --color-error-bg: rgba(255, 59, 92, 0.1);
+  --color-danger: #D90429;
+
+  /* States */
+  --color-online: #39FF88;
+  --color-progress-track: #252D4A;
+  --color-quest-progress: #FF6B35;
+}
+
+@layer base {
+  body {
+    background-color: #0B1026;
+    color: #F8F7F2;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    /* Font scaling optimizer for mobile displays */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+    letter-spacing: -0.02em;
+    color: #F8F7F2;
+  }
+}
+
+/* Custom scrollbars matching cinematic colors */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B1026;
+}
+::-webkit-scrollbar-thumb {
+  background: #252D4A;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00D9D9;
+}
+
+/* Subtle Tab CTA & Quest Keyframes */
+@keyframes subtle-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.animate-subtle-bounce {
+  animation: subtle-bounce 2s ease-in-out infinite;
+}
+
+@keyframes subtle-badge-pulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 0.85;
+  }
+}
+
+.animate-subtle-badge-pulse {
+  animation: subtle-badge-pulse 1.8s ease-in-out infinite;
+}

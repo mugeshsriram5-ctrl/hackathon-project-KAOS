@@ -1,0 +1,291 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile and explorer telemetry",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string", "maxLength": 100 },
+        "username": { "type": "string", "maxLength": 50 },
+        "bio": { "type": "string", "maxLength": 300 },
+        "xp": { "type": "number" },
+        "streak": { "type": "number" },
+        "isVip": { "type": "boolean" },
+        "vipTermsAccepted": { "type": "boolean" },
+        "vipTermsVersion": { "type": "string" },
+        "vipActivatedAt": { "type": "string", "format": "date-time" },
+        "availabilityStatus": { "type": "string", "enum": ["Available Now", "Away"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "Direct 1-on-1 or group messaging chat threads",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string", "enum": ["direct", "group"] },
+        "name": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "createdBy": { "type": "string" },
+        "participantIds": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "type", "name", "createdBy", "participantIds"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Real-time chat messages and shared exploration cards",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "conversationId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "messageType": { "type": "string", "enum": ["text", "image", "place", "quest", "trail", "map_location"] },
+        "text": { "type": "string" },
+        "status": { "type": "string", "enum": ["sending", "sent", "delivered", "read"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "conversationId", "senderId", "senderName", "messageType"]
+    },
+    "Friend": {
+      "title": "Friend",
+      "description": "Reciprocal confirmed friendship connection between two real registered users",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "username": { "type": "string" },
+        "isVip": { "type": "boolean" },
+        "availabilityStatus": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email"]
+    },
+    "FriendRequest": {
+      "title": "FriendRequest",
+      "description": "User-initiated friend invitation requiring explicit receiver acceptance",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "senderId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderEmail": { "type": "string" },
+        "senderUsername": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "receiverEmail": { "type": "string" },
+        "receiverName": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "declined"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "senderId", "receiverId", "status", "createdAt"]
+    },
+    "Bookmark": {
+      "title": "Bookmark",
+      "description": "Saved Chennai discoveries in field journal",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "discoveryId": { "type": "string" },
+        "title": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "discoveryId", "title"]
+    },
+    "JournalEntry": {
+      "title": "JournalEntry",
+      "description": "Captured photos and notes for discovered quests",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "questTitle": { "type": "string" },
+        "notes": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "questTitle", "notes"]
+    },
+    "SearchHistoryItem": {
+      "title": "SearchHistoryItem",
+      "description": "Recent search queries, locations, and topics persisted per user",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "query": { "type": "string", "maxLength": 120 },
+        "category": { "type": "string", "enum": ["location", "topic", "keyword"] },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "query", "timestamp"]
+    },
+    "DailyChallenge": {
+      "title": "DailyChallenge",
+      "description": "Global 24-hour location-agnostic knowledge quest generated by Gemini AI",
+      "type": "object",
+      "properties": {
+        "dateKey": { "type": "string" },
+        "title": { "type": "string" },
+        "subtitle": { "type": "string" },
+        "category": { "type": "string" },
+        "loreStory": { "type": "string" },
+        "learningTakeaway": { "type": "string" },
+        "xpReward": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["dateKey", "title", "category", "loreStory", "learningTakeaway"]
+    },
+    "DailyChallengeClaim": {
+      "title": "DailyChallengeClaim",
+      "description": "Recorded claim ensuring user can only claim daily reward once per 24-hour cycle",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "dateKey": { "type": "string" },
+        "score": { "type": "number" },
+        "xpEarned": { "type": "number" },
+        "claimedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "dateKey", "score", "xpEarned"]
+    },
+    "SavedLocationPin": {
+      "title": "SavedLocationPin",
+      "description": "User-defined custom map markers with personalized notes",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "note": { "type": "string", "maxLength": 500 },
+        "timestamp": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "lat", "lng", "note", "timestamp"]
+    },
+    "CommunityEcho": {
+      "title": "CommunityEcho",
+      "description": "Shared field observations and local lore contributions",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "authorId": { "type": "string" },
+        "authorName": { "type": "string" },
+        "authorHandle": { "type": "string" },
+        "spotName": { "type": "string" },
+        "snippet": { "type": "string", "maxLength": 1000 },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "likes": { "type": "number" }
+      },
+      "required": ["id", "authorId", "spotName", "snippet", "timestamp"]
+    },
+    "ActivityFeedItem": {
+      "title": "ActivityFeedItem",
+      "description": "Public stream of explorer achievements and check-ins",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "explorerId": { "type": "string" },
+        "explorerName": { "type": "string" },
+        "actionType": { "type": "string" },
+        "locationName": { "type": "string" },
+        "zone": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "xpGained": { "type": "number" }
+      },
+      "required": ["id", "explorerId", "actionType", "timestamp"]
+    },
+    "Anchored3dArtifact": {
+      "title": "Anchored3dArtifact",
+      "description": "Persistent 3D AR artifacts anchored at real-world GPS coordinates",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "artifactId": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "placedByUserId": { "type": "string" },
+        "placedByUserName": { "type": "string" },
+        "anchoredAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "artifactId", "lat", "lng", "placedByUserId"]
+    },
+    "KaosBotSession": {
+      "title": "KaosBotSession",
+      "description": "Persisted KAOS Bot chat history across sessions",
+      "type": "object",
+      "properties": {
+        "messages": { "type": "array" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["messages"]
+    }
+  },
+  "firestore": {
+    "/conversations/{conversationId}": {
+      "schema": { "$ref": "Conversation" },
+      "description": "Direct and group chat threads"
+    },
+    "/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "ChatMessage" },
+      "description": "Real-time messages and shared cards"
+    },
+    "/users/{userId}": {
+      "schema": { "$ref": "User" },
+      "description": "User profile data and VIP state"
+    },
+    "/users/{userId}/friends/{friendId}": {
+      "schema": { "$ref": "Friend" },
+      "description": "User confirmed friends list"
+    },
+    "/friendRequests/{requestId}": {
+      "schema": { "$ref": "FriendRequest" },
+      "description": "Pending and resolved friend requests between real users"
+    },
+    "/users/{userId}/bookmarks/{bookmarkId}": {
+      "schema": { "$ref": "Bookmark" },
+      "description": "User saved bookmarks"
+    },
+    "/users/{userId}/journalEntries/{entryId}": {
+      "schema": { "$ref": "JournalEntry" },
+      "description": "User captured field journal photos and notes"
+    },
+    "/users/{userId}/searchHistory/{searchId}": {
+      "schema": { "$ref": "SearchHistoryItem" },
+      "description": "User recent search history entries"
+    },
+    "/users/{userId}/savedPins/{pinId}": {
+      "schema": { "$ref": "SavedLocationPin" },
+      "description": "User custom map pins"
+    },
+    "/communityEchoes/{echoId}": {
+      "schema": { "$ref": "CommunityEcho" },
+      "description": "Shared community lore stream"
+    },
+    "/activityFeed/{activityId}": {
+      "schema": { "$ref": "ActivityFeedItem" },
+      "description": "Global social discovery feed"
+    },
+    "/anchoredWorldArtifacts/{artifactId}": {
+      "schema": { "$ref": "Anchored3dArtifact" },
+      "description": "Cloud-anchored AR artifacts across the city"
+    },
+    "/dailyChallenges/{dateKey}": {
+      "schema": { "$ref": "DailyChallenge" },
+      "description": "Active global 24-hour daily discovery challenges"
+    },
+    "/users/{userId}/dailyChallengeClaims/{claimId}": {
+      "schema": { "$ref": "DailyChallengeClaim" },
+      "description": "User claim history ensuring once-per-day reward claims"
+    },
+    "/users/{userId}/kaosBotHistory/{sessionId}": {
+      "schema": { "$ref": "KaosBotSession" },
+      "description": "Persisted KAOS Bot chat session history across sessions"
+    }
+  }
+}

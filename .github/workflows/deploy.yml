@@ -1,0 +1,70 @@
+name: Production Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target Deployment Environment'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-build-deploy:
+    name: Validate, Build & Deploy
+    runs-on: ubuntu-latest
+    environment: production
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: 📦 Install Dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: 🔍 Pre-Build Typecheck & Asset Integrity Validation
+        run: npm run build:check
+
+      - name: 🏗️ Compile Production Bundle & Post-Build Validation
+        run: npm run build
+        env:
+          NODE_ENV: production
+          VITE_GOOGLE_MAPS_API_KEY: ${{ secrets.VITE_GOOGLE_MAPS_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: 📦 Archive Production Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: kaos-production-dist
+          path: dist/
+          retention-days: 14
+
+      - name: 🚀 Deployment Health Check Confirmation
+        run: |
+          echo "===================================================="
+          echo "🎉 Production build and pre-flight checks completed!"
+          echo "📁 Dist bundle size: $(du -sh dist | cut -f1)"
+          echo "✅ Ready for production rollout."
+          echo "===================================================="
